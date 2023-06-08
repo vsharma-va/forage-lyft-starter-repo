@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
+
 class Battery(ABC):
-  @abstractmethod
-  def needs_service(self) -> bool:
-    pass
+    @abstractmethod
+    def needs_service(self) -> bool:
+        pass

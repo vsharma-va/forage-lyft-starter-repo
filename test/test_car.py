@@ -6,6 +6,8 @@ from battery_types.spindler_battery import SpindlerBattery
 from engine1.capulet_engine import CapuletEngine
 from engine1.sternman_engine import SternmanEngine
 from engine1.willoughby_engine import WilloughbyEngine
+from tyres_types.octoprime_tyres import OctoprimeTyres
+from tyres_types.carrigan_tyres import CarriganTyres
 
 
 class TestCapuletEngine(unittest.TestCase):
@@ -51,7 +53,7 @@ class TestSternmanEngine(unittest.TestCase):
 class TestSpindlerBattery(unittest.TestCase):
     def test_battery_should_be_serviced(self):
         today = datetime.today().date()
-        last_service_date = today.replace(year=today.year - 3)
+        last_service_date = today.replace(year=today.year - 4)
         battery = SpindlerBattery(last_service_date, today)
         self.assertTrue(battery.needs_service())
 
@@ -74,6 +76,28 @@ class TestNubbinBattery(unittest.TestCase):
         last_service_date = today.replace(year=today.year - 1)
         battery = NubbinBattery(last_service_date, today)
         self.assertFalse(battery.needs_service())
+        
+class TestOctoprimeTyres(unittest.TestCase):
+    def test_tyres_should_be_serviced(self):
+        tyre_wear_array = [0.9, 0.9, 0.9, 0.4]
+        tyres = OctoprimeTyres(tyre_wear_array=tyre_wear_array)
+        self.assertTrue(tyres.needs_service())
+    
+    def test_tyres_should_not_be_serviced(self):
+        tyre_wear_array = [0.7, 0.5, 0.7, 0.6]
+        tyres = OctoprimeTyres(tyre_wear_array=tyre_wear_array)
+        self.assertFalse(tyres.needs_service())
+        
+class TestCarriganTyres(unittest.TestCase):
+    def test_tyres_should_be_serviced(self):
+        tyre_wear_array = [0.9, 0.8,0.8,0.8]
+        tyres = CarriganTyres(tyre_wear_array=tyre_wear_array)
+        self.assertTrue(tyres.needs_service())
+        
+    def test_tyres_should_not_be_serviced(self):
+        tyre_wear_array = [0.8, 0.8, 0.8, 0.8]
+        tyres = CarriganTyres(tyre_wear_array=tyre_wear_array)
+        self.assertFalse(tyres.needs_service())
 
 
 if __name__ == "__main__":
